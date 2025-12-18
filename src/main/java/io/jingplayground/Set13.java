@@ -1,6 +1,7 @@
 package io.jingplayground;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HexFormat;
 
 public class Set13 {
@@ -10,6 +11,22 @@ public class Set13 {
         for (char c : text.toUpperCase().toCharArray()) {
             if (commonChars.indexOf(c) != -1) {
                 score++;
+            }
+        }
+        return score;
+    }
+
+    public static int scoreBytes(byte[] bytes) {
+        int score = 0;
+        byte[] freq = "ETAOINSHRDLU etaoinshrdlu".getBytes(StandardCharsets.US_ASCII);
+        Arrays.sort(freq);
+        for (byte b : bytes) {
+            if (Arrays.binarySearch(freq, b) >= 0) {
+                score += 3;
+            } else if(Character.isLetterOrDigit((char) b)) {
+                score += 1;
+            } else {
+                score -= 2;
             }
         }
         return score;
